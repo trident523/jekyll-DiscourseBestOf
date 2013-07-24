@@ -33,12 +33,41 @@ For just jekyll:
 
 Now, if you want the latest version just run git submodule update. Easier than it used to be! Remember when updating that the javascript file will need the correct URL.
 
-Next, we need to add the liquid tag to one of your layouts. Edit _layouts/post.html to include
 
-    <script type="text/javascript" src="javascripts/js/js-discourse.js"></script>
-    <div id="comments" {% discourse_comments %}></div>
+### Javascript Guide ###
 
-When the pages are created, this will add an attribute to the div tag called "tid", which holds the related topic ID. We're also loading the script right before it. This should probably be moved to your header instead, but for now let's keep moving. 
+* Edit your ```/source/_includes/custom/head.html```  file to include this script. jQuery is included with Octopress. As long as it's placed on your posts page it should work, but it'd be best to put it in the header. Here's an example, assuming you placed the files in the source folder. 
+
+```diff
++<script src="//code.jquery.com/jquery-2.0.0.js"></script> *if you need jQuery*
++<script src="/javascripts/js/js-discourse.js"></script>
+```
+
+* Edit your posts.html to include the below somewhere. Feel free to re-write the noscript tag.
+
+```diff
++  <section>
++    <h1>Comments</h1>
++    <div id="comments" style="padding-left:35px; padding-right:35px" {% discourse_comments %}></div>
++    <noscript>Javascript is off, so comments don't load.</noscript>
++  </section>
+```
+
+In octopress, you can remove:
+
+```diff
+-{% if site.disqus_short_name and page.comments == true %}
+-  <section>
+-    <h1>Comments</h1>
+-    <div id="disqus_thread" aria-live="polite">{% include post/disqus_thread.html %}</div>
+-  </section>
+-{% endif %}
+```
+ and include the above code.
+
+When the pages are created, this will add an attribute to the div tag called "tid", which holds the related topic ID. 
+
+### Jekyll/Octopress Guide ###
 
 Back out of your source directory, and create a directory called `_discourse`. Next, edit your `_config.yml` to include:
 
