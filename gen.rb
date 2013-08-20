@@ -9,6 +9,9 @@ module Jekyll
                 if (Jekyll.configuration({})['discourse_api_key'].nil?)
                         raise "API key not set in config! Please set discourse_api_key"
                 end
+                if (Jekyll.configuration({})['discourse_auto_track'].nil?)
+                        raise "Do you want to auto track posted topics or not? Set discourse_auto_track: true or false."
+                end
                 stor = PStore.new("_discourse/" + context.environments.first["page"]["title"].gsub('/','slash') + ".pstore")
                 posted = false
                 found = -1
@@ -23,7 +26,8 @@ module Jekyll
                            :title => context.environments.first["page"]["title"],
                            :raw => "From the blog: " + context.environments.first["page"]["title"] + "\n" + Jekyll.configuration({})['url'] + context.environments.first["page"]["url"] + ")",
                            :category => Jekyll.configuration({})['discourse_api_category'],
-                           :skip_validations => 'true'
+                           :skip_validations => 'true',
+                           :auto_track => Jekyll.configuration({})['discourse_auto_track']
                          }.to_json,
                             :headers => { 'Content-Type' => 'application/json' } );
 
