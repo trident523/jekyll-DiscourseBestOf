@@ -1,6 +1,8 @@
 jekyll-DiscourseBestOf
 ======================
 
+>##Hey! You should check out the [official way to do this.][8] This script probably still works, but I'm no longer maintaining it.
+
 The ruby component to https://github.com/trident523/js-discourseBestOf.
 
     add_header "Access-Control-Allow-Origin" "*";
@@ -89,3 +91,5 @@ To recap:
 4. Add needed information to your configuration yaml file.
 5. Add needed information to `js-discourse.js` 
 6. Generate your site!
+
+ [8]: http://eviltrout.com/2014/01/22/embedding-discourse.html
